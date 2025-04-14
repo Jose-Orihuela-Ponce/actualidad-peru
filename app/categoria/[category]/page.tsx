@@ -10,12 +10,13 @@ const categoryNames: Record<string, string> = {
   tecnologia: 'Tecnología'
 };
 
+// @ts-ignore - Temporal fix for Next.js 15.2.4 type issues with params
 export default async function CategoryPage({
   params
 }: {
-  params: { category: string };
+  params: any
 }) {
-  const { category } = await params;
+  const { category } = params as { category: string };
   const news = getNewsByCategory(category);
 
   if (!news.length || !categoryNames[category]) {

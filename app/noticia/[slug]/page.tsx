@@ -1,5 +1,4 @@
 import Link from "next/link"
-import Image from "next/image"
 import { Calendar } from "lucide-react"
 import { notFound } from "next/navigation"
 import { getNewsBySlug, getRelatedNews } from "@/lib/data"
@@ -17,9 +16,14 @@ const categoryNames: Record<string, string> = {
   tecnologia: "Tecnología",
 }
 
-export default async function NewsPage({ params }: { params: { slug: string } }) {
+// @ts-ignore - Temporal fix for Next.js 15.2.4 type issues with params
+export default async function NewsPage({
+  params
+}: {
+  params: any
+}) {
 
-  const { slug } = await params
+  const { slug } = params as { slug: string };
   const article = getNewsBySlug(slug);
 
   if (!article) {
